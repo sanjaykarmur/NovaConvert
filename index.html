@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NovaConvert — Convert Images, PDFs, Audio & Video in Your Browser</title>
+<meta name="description" content="A free, private online file converter. Convert images, PDFs, Word docs, audio, and video entirely in your browser — nothing is uploaded to a server.">
+<meta name="theme-color" content="#05060d">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/animations.css">
+<link rel="stylesheet" href="css/responsive.css">
+
+<meta property="og:title" content="NovaConvert — Online File Converter">
+<meta property="og:description" content="Convert images, documents, audio, and video entirely in your browser. Private by default.">
+<meta property="og:type" content="website">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ==================== Icon sprite ==================== -->
+<svg style="display:none" aria-hidden="true">
+  <defs>
+    <g id="_stroke-defaults" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></g>
+
+    <symbol id="icon-logo" viewBox="0 0 24 24"><path d="M12 2l7 5v10l-7 5-7-5V7z" fill="none" stroke="currentColor" stroke-width="1.6"/><path class="beam" d="M12 2v20M5 7l14 10M19 7L5 17" stroke="currentColor" stroke-width="1.1" opacity="0.6"/></symbol>
+
+    <symbol id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.4M12 19.6V22M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2 12h2.4M19.6 12H22M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/></symbol>
+    <symbol id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.3A8.3 8.3 0 1110.2 4a6.6 6.6 0 009.8 10.3z"/></symbol>
+    <symbol id="icon-monitor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="13" rx="1.8"/><path d="M8 21h8M12 17.5V21"/></symbol>
+
+    <symbol id="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20.5 20.5l-4.35-4.35"/></symbol>
+    <symbol id="icon-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 3.5l2.6 5.5 6 .7-4.4 4.2 1.1 6-5.3-3-5.3 3 1.1-6-4.4-4.2 6-.7z"/></symbol>
+    <symbol id="icon-star-filled" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.5 6 .7-4.4 4.2 1.1 6-5.3-3-5.3 3 1.1-6-4.4-4.2 6-.7z" fill="currentColor"/></symbol>
+
+    <symbol id="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3.5 6.5h17M3.5 12h17M3.5 17.5h17"/></symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M5.5 5.5l13 13M18.5 5.5l-13 13"/></symbol>
+    <symbol id="icon-chevron-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></symbol>
+
+    <symbol id="icon-upload-cloud" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 17.5A4.5 4.5 0 018 8.6a5.5 5.5 0 0110.7 1.7A4 4 0 0117.5 18H16"/><path d="M12 12v8M9 15l3-3 3 3"/></symbol>
+    <symbol id="icon-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M8 11l4 4 4-4M4 19h16"/></symbol>
+    <symbol id="icon-share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="2.4"/><circle cx="6" cy="12" r="2.4"/><circle cx="18" cy="19" r="2.4"/><path d="M8.2 10.8l7.6-4.2M8.2 13.2l7.6 4.2"/></symbol>
+    <symbol id="icon-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 14.5l5-5M9 6.5l1-1a3.5 3.5 0 015 5l-1 1M15 17.5l-1 1a3.5 3.5 0 01-5-5l1-1"/></symbol>
+    <symbol id="icon-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 7h15M9 7V5a1.5 1.5 0 011.5-1.5h3A1.5 1.5 0 0115 5v2m2 0-.8 12a2 2 0 01-2 1.9H9.8a2 2 0 01-2-1.9L7 7"/></symbol>
+    <symbol id="icon-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 8h.01"/></symbol>
+    <symbol id="icon-check-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path class="success-check" d="M7.5 12.5l3 3 6-6.5"/></symbol>
+    <symbol id="icon-alert-triangle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l10 17H2z"/><path d="M12 10v4.2M12 17h.01"/></symbol>
+    <symbol id="icon-history" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 109-9 9 9 0 00-7.4 3.9"/><path d="M3 4v4.5h4.5M12 7.5V12l3 2"/></symbol>
+    <symbol id="icon-settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 13.5a1.8 1.8 0 00.36 2l.06.06a2.2 2.2 0 11-3.1 3.1l-.07-.06a1.8 1.8 0 00-2-.36 1.8 1.8 0 00-1.1 1.65V20a2.2 2.2 0 01-4.4 0v-.1a1.8 1.8 0 00-1.17-1.65 1.8 1.8 0 00-2 .36l-.06.06a2.2 2.2 0 11-3.1-3.1l.06-.07a1.8 1.8 0 00.36-2 1.8 1.8 0 00-1.65-1.1H4a2.2 2.2 0 010-4.4h.1a1.8 1.8 0 001.65-1.17 1.8 1.8 0 00-.36-2l-.06-.06a2.2 2.2 0 113.1-3.1l.07.06a1.8 1.8 0 002 .36h.08A1.8 1.8 0 0011.9 2.2V2a2.2 2.2 0 014.4 0v.1a1.8 1.8 0 001.1 1.65h.08a1.8 1.8 0 002-.36l.06-.06a2.2 2.2 0 113.1 3.1l-.06.07a1.8 1.8 0 00-.36 2v.08a1.8 1.8 0 001.65 1.1H22a2.2 2.2 0 010 4.4h-.1a1.8 1.8 0 00-1.65 1.1z"/></symbol>
+
+    <symbol id="icon-image" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.6"/><path d="M21 16l-5.5-5.5a2 2 0 00-2.8 0L4 19"/></symbol>
+    <symbol id="icon-file-text" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14a1 1 0 01-1 1H6a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M15 3v4h4M8 12h8M8 15.5h8M8 8.5h4"/></symbol>
+    <symbol id="icon-music" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5.5L20 3v12.5"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="15.5" r="2.5"/></symbol>
+    <symbol id="icon-video" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6.5" width="14" height="11" rx="1.8"/><path d="M16.5 10.2l5-3v9.6l-5-3z"/></symbol>
+    <symbol id="icon-package" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5l9 5v9l-9 5-9-5v-9z"/><path d="M3 7.5l9 5 9-5M12 12.5V21"/></symbol>
+    <symbol id="icon-qr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="3" width="6" height="6" rx="1"/><rect x="3" y="15" width="6" height="6" rx="1"/><path d="M15 15h2.3M19.5 15H21M15 19.5h2.3M19.5 18v3" stroke-linecap="round"/></symbol>
+    <symbol id="icon-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 8l-5 4 5 4M15 8l5 4-5 4"/></symbol>
+    <symbol id="icon-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5M3 8l9 5 9-5"/></symbol>
+  </defs>
+</svg>
+
+<!-- ==================== Header ==================== -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="#home" class="logo">
+      <svg class="logo-mark"><use href="#icon-logo"></use></svg>
+      NovaConvert
+    </a>
+    <nav class="main-nav" aria-label="Primary">
+      <a href="#home" data-i18n="navHome">Home</a>
+      <a href="#tools" data-i18n="navTools">Tools</a>
+      <a href="#history" data-i18n="navHistory">History</a>
+    </nav>
+    <div class="header-actions">
+      <div class="search-wrap">
+        <svg><use href="#icon-search"></use></svg>
+        <input type="search" id="searchInput" class="text-input" placeholder="Search tools or formats…" aria-label="Search tools or formats">
+        <span class="search-kbd">/</span>
+      </div>
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle dark or light theme"><svg><use href="#icon-sun"></use></svg></button>
+      <button class="icon-btn" id="settingsBtn" aria-label="Open settings"><svg><use href="#icon-settings"></use></svg></button>
+      <button class="icon-btn mobile-only" id="navToggle" aria-label="Open menu" aria-expanded="false"><svg><use href="#icon-menu"></use></svg></button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile nav drawer -->
+<div class="nav-drawer" id="navDrawer" data-open="false">
+  <div class="nav-drawer-scrim"></div>
+  <nav class="nav-drawer-panel" aria-label="Mobile navigation">
+    <a href="#home" data-i18n="navHome">Home</a>
+    <a href="#tools" data-i18n="navTools">Tools</a>
+    <a href="#history" data-i18n="navHistory">History</a>
+    <hr style="border-color:var(--surface-border);width:100%">
+    <button class="btn btn-ghost btn-block" id="mobileThemeToggle"><svg width="16" height="16"><use href="#icon-sun"></use></svg> Toggle theme</button>
+    <button class="btn btn-ghost btn-block" id="mobileSettingsBtn"><svg width="16" height="16"><use href="#icon-settings"></use></svg> Settings</button>
+  </nav>
+</div>
+
+<main id="main">
+  <!-- ==================== Hero ==================== -->
+  <section class="hero" id="home">
+    <canvas id="auroraCanvas" aria-hidden="true"></canvas>
+    <div class="container hero-inner">
+      <p class="eyebrow" data-i18n="heroEyebrow">Client-side · Private · Free</p>
+      <h1>Convert anything. <span class="grad-text">Keep it private.</span></h1>
+      <p class="hero-sub" data-i18n="heroSub">Images, documents, audio, and video — converted right in your browser. Nothing you drop here ever leaves your device.</p>
+
+      <div class="dropzone" id="heroDropzone" tabindex="0" role="button" aria-label="Drop files here or press to browse">
+        <svg class="dz-icon"><use href="#icon-upload-cloud"></use></svg>
+        <p data-i18n="dzTitle">Drag &amp; drop files here</p>
+        <p class="dz-sub">or</p>
+        <button class="btn btn-primary" id="browseBtn" type="button" data-i18n="browse">Browse files</button>
+        <input type="file" id="fileInput" multiple hidden>
+        <p class="dz-hint">Images · PDFs · Word docs · Audio · Video · ZIP — we'll pick the right tool automatically</p>
+      </div>
+
+      <div class="hero-stats" id="heroStats"></div>
+    </div>
+  </section>
+
+  <!-- ==================== Tools ==================== -->
+  <section class="section" id="tools">
+    <div class="container" id="toolsSection">
+      <div class="section-head">
+        <div>
+          <h2 data-i18n="toolsHeading">Every tool you need</h2>
+          <p data-i18n="toolsSub">Pick a category or search for a format.</p>
+        </div>
+      </div>
+      <div class="category-tabs" id="categoryTabs" role="tablist" aria-label="Tool categories"></div>
+      <div class="tool-grid" id="toolGrid"></div>
+    </div>
+
+    <!-- Workspace: shown when a tool is selected -->
+    <div class="container workspace" id="workspace" hidden>
+      <button class="back-btn" id="backBtn"><svg width="16" height="16"><use href="#icon-chevron-left"></use></svg> Back to tools</button>
+
+      <div class="workspace-header">
+        <div class="tool-title">
+          <div class="tool-icon" id="wsIcon"></div>
+          <h2 id="wsName"></h2>
+        </div>
+        <button class="icon-btn" id="favToggle" aria-pressed="false" aria-label="Toggle favorite"><svg><use href="#icon-star"></use></svg></button>
+      </div>
+      <p class="workspace-desc" id="wsDesc"></p>
+
+      <div class="workspace-grid">
+        <div class="ws-upload glass">
+          <div class="dropzone dropzone-sm" id="wsDropzone" tabindex="0" role="button">
+            <svg class="dz-icon"><use href="#icon-upload-cloud"></use></svg>
+            <p>Drag files here or tap to browse</p>
+            <input type="file" id="wsFileInput" hidden>
+          </div>
+          <ul class="file-list" id="fileList"></ul>
+        </div>
+
+        <div class="ws-options glass">
+          <h3>Options</h3>
+          <form id="optionsForm" novalidate></form>
+          <div class="ws-actions">
+            <button class="btn btn-primary btn-lg btn-block" id="convertBtn" disabled>Convert</button>
+            <button class="btn btn-danger-ghost btn-lg" id="cancelBtn" hidden>Cancel</button>
+          </div>
+          <div class="progress-wrap" id="progressWrap" hidden>
+            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+            <p class="progress-label" id="progressLabel"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="ws-results glass" id="resultsPanel" hidden>
+        <div class="results-header">
+          <h3><svg width="20" height="20"><use href="#icon-check-circle"></use></svg> Done</h3>
+          <div class="results-savings" id="resultsSavings"></div>
+        </div>
+        <ul class="results-list" id="resultsList"></ul>
+        <div class="results-actions">
+          <button class="btn btn-primary" id="downloadAllBtn">Download all as ZIP</button>
+          <button class="btn btn-ghost" id="convertMoreBtn">Convert more files</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== History ==================== -->
+  <section class="section" id="history">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2 data-i18n="historyHeading">Recent conversions</h2>
+          <p>Stored only on this device — never sent anywhere.</p>
+        </div>
+      </div>
+      <ul class="history-list" id="historyList"></ul>
+    </div>
+  </section>
+</main>
+
+<!-- ==================== Footer ==================== -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>© <span id="year"></span> NovaConvert. All conversions run locally in your browser.</p>
+    <div class="footer-links">
+      <button type="button" id="footerSettingsBtn">Settings</button>
+    </div>
+  </div>
+</footer>
+
+<!-- ==================== Settings modal ==================== -->
+<div class="modal-layer" id="settingsModal" data-open="false" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+  <div class="modal-scrim"></div>
+  <div class="modal-panel glass">
+    <div class="modal-head">
+      <h3 id="settingsTitle">Settings</h3>
+      <button class="icon-btn" data-close-modal aria-label="Close settings" data-autofocus><svg><use href="#icon-close"></use></svg></button>
+    </div>
+
+    <div class="modal-section">
+      <h4>Appearance</h4>
+      <div class="settings-row">
+        <div><div class="settings-row-label">Theme</div><div class="settings-row-desc">Match your system, or choose manually.</div></div>
+        <div class="theme-switch">
+          <button data-theme-option="light" aria-pressed="false" aria-label="Light theme"><svg><use href="#icon-sun"></use></svg></button>
+          <button data-theme-option="dark" aria-pressed="false" aria-label="Dark theme"><svg><use href="#icon-moon"></use></svg></button>
+          <button data-theme-option="system" aria-pressed="false" aria-label="System theme"><svg><use href="#icon-monitor"></use></svg></button>
+        </div>
+      </div>
+      <div class="settings-row">
+        <div><div class="settings-row-label">Language</div><div class="settings-row-desc">Interface language.</div></div>
+        <select class="select" id="languageSelect" style="width:auto">
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="hi">हिन्दी</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <h4>Conversion</h4>
+      <div class="settings-row">
+        <div><div class="settings-row-label">Auto-delete files</div><div class="settings-row-desc">Clear uploaded files from memory right after conversion.</div></div>
+        <label class="switch"><input type="checkbox" id="autoDeleteToggle"><span class="switch-track"></span></label>
+      </div>
+      <div class="settings-row">
+        <div><div class="settings-row-label">Conversion mode</div><div class="settings-row-desc">Fast trades quality for speed.</div></div>
+        <select class="select" id="qualityModeSelect" style="width:auto">
+          <option value="high">High quality</option>
+          <option value="fast">Fast</option>
+        </select>
+      </div>
+      <div class="settings-row" style="flex-direction:column;align-items:stretch;gap:var(--sp-2)">
+        <div class="settings-row-label">Default compression quality <span id="defaultQualityValue" style="color:var(--text-tertiary);font-weight:400"></span></div>
+        <input class="range" type="range" id="defaultQualityRange" min="0.1" max="1" step="0.05">
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <h4>Data</h4>
+      <div class="settings-row">
+        <div><div class="settings-row-label">Conversion history</div><div class="settings-row-desc">Stored locally on this device.</div></div>
+        <button class="btn btn-danger-ghost btn-sm" id="clearHistoryBtn">Clear history</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== Metadata modal ==================== -->
+<div class="modal-layer" id="metadataModal" data-open="false" role="dialog" aria-modal="true" aria-labelledby="metadataTitle">
+  <div class="modal-scrim"></div>
+  <div class="modal-panel glass">
+    <div class="modal-head">
+      <h3 id="metadataTitle">File details</h3>
+      <button class="icon-btn" data-close-modal aria-label="Close" data-autofocus><svg><use href="#icon-close"></use></svg></button>
+    </div>
+    <dl class="meta-grid" id="metadataGrid"></dl>
+  </div>
+</div>
+
+<!-- ==================== Toasts ==================== -->
+<div class="toast-region" id="toastRegion" aria-live="polite"></div>
+
+<script type="module" src="js/app.js"></script>
+<script>
+  document.getElementById("footerSettingsBtn")?.addEventListener("click", () => document.getElementById("settingsBtn").click());
+</script>
+</body>
+</html>
