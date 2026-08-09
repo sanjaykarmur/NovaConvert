@@ -23,17 +23,56 @@ function dataURLtoBlob(dataUrl) {
 // options: { text, errorCorrection: 'L'|'M'|'Q'|'H', size }
 export async function generateQRCode(_files, options, { onProgress } = {}) {
   onProgress?.({ percent: 30 });
+
   if (!window.qrcode) await loadScript(QRCODE_CDN);
+
   const text = (options.text || "").trim();
   if (!text) throw new Error("Enter some text or a URL to encode first.");
 
   const qr = window.qrcode(0, options.errorCorrection || "M");
   qr.addData(text);
   qr.make();
-  const cellSize = Math.max(2, Math.round((options.size || 320) / qr.getModuleCount()));
-  const dataUrl = qr.createDataURL(cellSize, 4);
+
+  const size = options.size || 320;
+  const cellSize = Math.max(2, Math.round(size / qr.getModuleCount()));
+
+  // qrcode-generator creates GIF here, so convert it to a real PNG.
+  const gifDataUrl = qr.createDataURL(cellSize, 4);
+
+  const img = new Image();
+
+  const pngBlob = await new Promise((resolve, reject) => {
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = img.width;
+      canvas.height = img.height;
+
+      const ctx = canvas.getContext("2d");
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0);
+
+      canvas.toBlob(
+        blob => blob ? resolve(blob) : reject(new Error("Failed to create PNG.")),
+        "image/png"
+      );
+    };
+
+    img.onerror = () => reject(new Error("Failed to generate QR code."));
+    img.src = gifDataUrl;
+  });
+
+  const previewDataUrl = URL.createObjectURL(pngBlob);
+
   onProgress?.({ percent: 100 });
-  return [{ name: "qr-code.png", blob: dataURLtoBlob(dataUrl), originalSize: 0, ok: true, previewDataUrl: dataUrl }];
+
+  return [{
+    name: "qr-code.png",
+    blob: pngBlob,
+    originalSize: pngBlob.size,
+    ok: true,
+    previewDataUrl
+  }];
 }
 
 /* ---------------- Base64 Encode / Decode ---------------- */
@@ -138,4 +177,4 @@ export async function pdfToText(files, options, { onProgress, isCancelled } = {}
     }
   }
   return results;
-}
+  }
