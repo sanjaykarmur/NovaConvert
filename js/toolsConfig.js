@@ -9,7 +9,7 @@
 import { convertImages } from "./converters/image.js";
 import { createZip, extractZip } from "./converters/zip.js";
 import { generateQRCode, base64Convert, textToPDF, pdfToText } from "./converters/misc.js";
-import { mergePDFs, splitPDF, rotatePDF, extractPDFPages, compressPDF, pdfToImages, wordToPDF } from "./converters/pdf.js";
+import { mergePDFs, splitPDF, rotatePDF, extractPDFPages, compressPDF, pdfToImages, wordToPDF, photosToPDF } from "./converters/pdf.js";
 import { convertAudio, trimAudio, convertVideo, extractAudio, compressVideo } from "./converters/av.js";
 
 export const CATEGORIES = [
@@ -64,6 +64,19 @@ export const TOOLS = [
     run: wordToPDF,
   },
   {
+    id: "photo-to-pdf",
+    name: "Photo to PDF",
+    category: "documents",
+    icon: "image",
+    accept: ".jpg,.jpeg,.png,.webp,.bmp,.gif,image/*",
+    multiple: true,
+    orderMatters: true,
+    keywords: "photo photos image images picture pictures jpg png pdf combine",
+    description: "Combine one or more photos into a single PDF, one photo per page, in the exact order you select them.",
+    options: [],
+    run: photosToPDF,
+  },
+  {
     id: "pdf-to-images",
     name: "PDF → Images",
     category: "documents",
@@ -85,6 +98,7 @@ export const TOOLS = [
     icon: "file-text",
     accept: ".pdf",
     multiple: true,
+    orderMatters: true,
     keywords: "pdf combine join merge",
     description: "Combine multiple PDFs into a single document, in the order you add them.",
     options: [{ key: "outputName", label: "Output file name", type: "text", default: "merged" }],
