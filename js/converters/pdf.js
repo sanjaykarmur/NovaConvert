@@ -50,6 +50,113 @@ function assertPdf(file) {
   }
 }
 
+/* ---------------- Photo(s) -> PDF ---------------- */
+// Combines every selected photo into a single PDF, one photo per page, in
+// the exact order the photos were selected/listed. No resize, compression,
+// or page-size options — each page is sized to fit the photo on A4 paper.
+const A4_PT = { width: 595.28, height: 841.89 };
+const PAGE_MARGIN_PT = 24;
+
+/** Decodes an image file into raw PNG bytes via canvas — used as a fallback
+ *  for formats pdf-lib can't embed directly (WebP, GIF, BMP, etc.). */
+function imageFileToPngBytes(file) {
+  return new Promise((resolve, reject) => {
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      try {
+        const canvas = document.createElement("canvas");
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        canvas.getContext("2d").drawImage(img, 0, 0);
+        canvas.toBlob((blob) => {
+          URL.revokeObjectURL(url);
+          if (!blob) return reject(new Error(`"${file.name}" could not be read — it may be corrupted or an unsupported image format.`));
+          blob.arrayBuffer().then(resolve, reject);
+        }, "image/png");
+      } catch (err) {
+        URL.revokeObjectURL(url);
+        reject(err);
+      }
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(url);
+      reject(new Error(`"${file.name}" could not be read — it may be corrupted or an unsupported image format.`));
+    };
+    img.src = url;
+  });
+}
+
+/** Embeds a single photo file into the pdf-lib document, converting via
+ *  canvas first for any format that isn't natively JPEG/PNG. */
+async function embedPhoto(doc, file) {
+  const mime = (file.type || "").toLowerCase();
+  const ext = format_ext(file.name);
+  const isJpeg = mime === "image/jpeg" || mime === "image/jpg" || (!mime && (ext === "jpg" || ext === "jpeg"));
+  const isPng = mime === "image/png" || (!mime && ext === "png");
+
+  if (isJpeg) {
+    try {
+      return await doc.embedJpg(await readAsArrayBuffer(file));
+    } catch {
+      /* fall through to canvas conversion below */
+    }
+  } else if (isPng) {
+    try {
+      return await doc.embedPng(await readAsArrayBuffer(file));
+    } catch {
+      /* fall through to canvas conversion below */
+    }
+  }
+  const pngBytes = await imageFileToPngBytes(file);
+  return doc.embedPng(pngBytes);
+}
+
+function format_ext(name = "") {
+  const i = name.lastIndexOf(".");
+  return i === -1 ? "" : name.slice(i + 1).toLowerCase();
+}
+
+export async function photosToPDF(files, options, { onProgress, isCancelled } = {}) {
+  if (!files.length) throw new Error("Add at least one photo to convert.");
+  const PDFLib = await ensurePDFLib();
+  const doc = await PDFLib.PDFDocument.create();
+  const originalSize = files.reduce((s, f) => s + f.size, 0);
+  const failed = [];
+  let embedded = 0;
+
+  for (let i = 0; i < files.length; i++) {
+    if (isCancelled?.()) return [];
+    const file = files[i];
+    onProgress?.({ index: i, total: files.length, fileName: file.name, percent: (i / files.length) * 100 });
+
+    try {
+      const img = await embedPhoto(doc, file);
+      const maxW = A4_PT.width - PAGE_MARGIN_PT * 2;
+      const maxH = A4_PT.height - PAGE_MARGIN_PT * 2;
+      const scale = Math.min(maxW / img.width, maxH / img.height);
+      const w = img.width * scale;
+      const h = img.height * scale;
+
+      const page = doc.addPage([A4_PT.width, A4_PT.height]);
+      page.drawImage(img, { x: (A4_PT.width - w) / 2, y: (A4_PT.height - h) / 2, width: w, height: h });
+      embedded++;
+    } catch (err) {
+      failed.push({ name: file.name, error: err.message || "This photo couldn't be added to the PDF.", ok: false, originalSize: file.size });
+    }
+    onProgress?.({ index: i, total: files.length, percent: ((i + 1) / files.length) * 100 });
+  }
+
+  if (!embedded) {
+    throw new Error("None of the selected photos could be read. Try different files.");
+  }
+
+  const bytes = await doc.save();
+  const name = options?.outputName?.trim() ? `${options.outputName.trim()}.pdf` : "photos.pdf";
+  const results = [{ name, blob: new Blob([bytes], { type: "application/pdf" }), originalSize, ok: true }];
+  return [...results, ...failed];
+}
+
 /* ---------------- Merge PDFs ---------------- */
 export async function mergePDFs(files, options, { onProgress, isCancelled } = {}) {
   if (files.length < 2) throw new Error("Add at least two PDF files to merge.");
