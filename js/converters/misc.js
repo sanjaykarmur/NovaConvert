@@ -3,7 +3,7 @@
    Small standalone utilities that don't fit image/pdf/av: QR code
    generation, Base64 encode/decode, and plain Text ↔ PDF.
    ========================================================================== */
-import { loadScript, readAsArrayBuffer, readAsText } from "../utils.js";
+import { loadScript, readAsArrayBuffer, readAsText } from "../utils.js?v=3";
 
 const QRCODE_CDN = "https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js";
 const JSPDF_CDN = "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js";

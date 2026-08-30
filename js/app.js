@@ -4,12 +4,12 @@
    bits of glue that don't belong anywhere else: the history section and
    the ambient aurora canvas that gives the hero its signature look.
    ========================================================================== */
-import { initTheme } from "./theme.js";
-import { state, bus } from "./state.js";
-import { initWorkspace } from "./ui/workspace.js";
-import { initNav } from "./ui/nav.js";
-import { initSettingsModal, initMetadataModal } from "./ui/modals.js";
-import { renderHistory, renderHeroStats } from "./ui/render.js";
+import { initTheme } from "./theme.js?v=3";
+import { state, bus } from "./state.js?v=3";
+import { initWorkspace } from "./ui/workspace.js?v=3";
+import { initNav } from "./ui/nav.js?v=3";
+import { initSettingsModal, initMetadataModal } from "./ui/modals.js?v=3";
+import { renderHistory, renderHeroStats } from "./ui/render.js?v=3";
 
 function initHistorySection() {
   const list = document.getElementById("historyList");

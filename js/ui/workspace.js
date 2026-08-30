@@ -4,12 +4,12 @@
    queue, running the conversion with a live progress bar and cancel
    support, and handling the results (download / zip / share / copy link).
    ========================================================================== */
-import { format, toast, downloadBlob } from "../utils.js";
-import { getTool } from "../toolsConfig.js";
-import { state, bus, setQueue, addToQueue, removeFromQueue, clearQueue, toggleFavorite, isFavorite, pushHistory } from "../state.js";
-import { icon, renderOptionsForm, defaultValuesFor, renderFileList, renderResults } from "./render.js";
-import { zipResults } from "../converters/zip.js";
-import { killFFmpeg } from "../converters/av.js";
+import { format, toast, downloadBlob } from "../utils.js?v=3";
+import { getTool } from "../toolsConfig.js?v=3";
+import { state, bus, setQueue, addToQueue, removeFromQueue, clearQueue, toggleFavorite, isFavorite, pushHistory } from "../state.js?v=3";
+import { icon, renderOptionsForm, defaultValuesFor, renderFileList, renderResults } from "./render.js?v=3";
+import { zipResults } from "../converters/zip.js?v=3";
+import { killFFmpeg } from "../converters/av.js?v=3";
 
 const el = {};
 let optionValues = {};

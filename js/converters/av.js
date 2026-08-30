@@ -5,7 +5,7 @@
    only the first time an audio/video tool is opened (the core is ~25MB).
    Everything still runs locally in the browser — nothing is uploaded.
    ========================================================================== */
-import { loadScript, readAsArrayBuffer } from "../utils.js";
+import { loadScript, readAsArrayBuffer } from "../utils.js?v=3";
 
 const FFMPEG_CDN = "https://unpkg.com/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js";
 const FFMPEG_CORE = "https://unpkg.com/@ffmpeg/core@0.11.0/dist/ffmpeg-core.js";

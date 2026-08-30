@@ -4,9 +4,9 @@
    (re)builds its DOM. Kept free of app-wide state so it's easy to reuse
    or test in isolation — orchestration lives in workspace.js / nav.js.
    ========================================================================== */
-import { format } from "../utils.js";
-import { TOOLS, CATEGORIES, toolMatchesQuery } from "../toolsConfig.js";
-import { isFavorite } from "../state.js";
+import { format } from "../utils.js?v=3";
+import { TOOLS, CATEGORIES, toolMatchesQuery } from "../toolsConfig.js?v=3";
+import { isFavorite } from "../state.js?v=3";
 
 export function icon(name, cls = "") {
   return `<svg class="${cls}" aria-hidden="true"><use href="#icon-${name}"></use></svg>`;

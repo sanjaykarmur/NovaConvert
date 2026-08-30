@@ -3,7 +3,7 @@
    ZIP creation and extraction via JSZip (lazy-loaded from CDN on first use),
    plus the shared helper used to bundle any tool's results into one archive.
    ========================================================================== */
-import { loadScript } from "../utils.js";
+import { loadScript } from "../utils.js?v=3";
 
 const JSZIP_CDN = "https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js";
 

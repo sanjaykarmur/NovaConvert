@@ -3,7 +3,7 @@
    Handles dark / light / system theme, persisted to localStorage and
    reactive to OS-level changes when "system" is selected.
    ========================================================================== */
-import { storage } from "./utils.js";
+import { storage } from "./utils.js?v=3";
 
 const MEDIA = window.matchMedia("(prefers-color-scheme: dark)");
 

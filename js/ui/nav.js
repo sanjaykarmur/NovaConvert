@@ -4,11 +4,11 @@
    tool grid, theme toggle, the hero drop zone's "smart" tool routing, and
    global keyboard shortcuts.
    ========================================================================== */
-import { toast } from "../utils.js";
-import { toggleTheme } from "../theme.js";
-import { toggleFavorite, addToQueue, bus } from "../state.js";
-import { renderToolGrid, renderCategoryTabs } from "./render.js";
-import { openTool } from "./workspace.js";
+import { toast } from "../utils.js?v=3";
+import { toggleTheme } from "../theme.js?v=3";
+import { toggleFavorite, addToQueue, bus } from "../state.js?v=3";
+import { renderToolGrid, renderCategoryTabs } from "./render.js?v=3";
+import { openTool } from "./workspace.js?v=3";
 
 let uiState = { category: "all", query: "" };
 

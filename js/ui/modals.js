@@ -3,10 +3,10 @@
    Generic accessible modal open/close (focus trap + ESC + scrim click),
    plus the two modals in the app: Settings and the file Metadata viewer.
    ========================================================================== */
-import { format, toast } from "../utils.js";
-import { state, bus, saveSettings, clearHistory } from "../state.js";
-import { setTheme, getTheme } from "../theme.js";
-import { getImageDimensions } from "../converters/image.js";
+import { format, toast } from "../utils.js?v=3";
+import { state, bus, saveSettings, clearHistory } from "../state.js?v=3";
+import { setTheme, getTheme } from "../theme.js?v=3";
+import { getImageDimensions } from "../converters/image.js?v=3";
 
 let lastFocused = null;
 

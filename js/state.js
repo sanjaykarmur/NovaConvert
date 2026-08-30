@@ -4,7 +4,7 @@
    across UI modules: user settings, conversion history, favorites, lifetime
    stats, and the active file queue for whichever tool is open.
    ========================================================================== */
-import { storage, format, Emitter } from "./utils.js";
+import { storage, format, Emitter } from "./utils.js?v=3";
 
 export const bus = new Emitter();
 

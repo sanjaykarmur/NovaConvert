@@ -6,11 +6,11 @@
    conversion format means adding one object here — no other file needs to
    change for a straightforward new tool.
    ========================================================================== */
-import { convertImages } from "./converters/image.js";
-import { createZip, extractZip } from "./converters/zip.js";
-import { generateQRCode, base64Convert, textToPDF, pdfToText } from "./converters/misc.js";
-import { mergePDFs, splitPDF, rotatePDF, extractPDFPages, compressPDF, pdfToImages, wordToPDF, photosToPDF } from "./converters/pdf.js";
-import { convertAudio, trimAudio, convertVideo, extractAudio, compressVideo } from "./converters/av.js";
+import { convertImages } from "./converters/image.js?v=3";
+import { createZip, extractZip } from "./converters/zip.js?v=3";
+import { generateQRCode, base64Convert, textToPDF, pdfToText } from "./converters/misc.js?v=3";
+import { mergePDFs, splitPDF, rotatePDF, extractPDFPages, compressPDF, pdfToImages, wordToPDF, photosToPDF } from "./converters/pdf.js?v=3";
+import { convertAudio, trimAudio, convertVideo, extractAudio, compressVideo } from "./converters/av.js?v=3";
 
 export const CATEGORIES = [
   { id: "images", label: "Images", icon: "image" },

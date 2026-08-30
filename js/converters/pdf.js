@@ -5,7 +5,7 @@
    mammoth.js + html2canvas + jsPDF as a best-effort client-side pipeline.
    All heavy libraries are lazy-loaded from a CDN on first use.
    ========================================================================== */
-import { loadScript, readAsArrayBuffer } from "../utils.js";
+import { loadScript, readAsArrayBuffer } from "../utils.js?v=3";
 
 const PDFLIB_CDN = "https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js";
 const PDFJS_CDN = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
