@@ -63,6 +63,10 @@ export const format = {
   truncate(str, n) {
     return str.length > n ? str.slice(0, n - 1) + "…" : str;
   },
+  /** Escapes text for safe insertion into HTML (attributes or text nodes). */
+  escapeHtml(str = "") {
+    return String(str).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  },
   uid() {
     return Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
   },
