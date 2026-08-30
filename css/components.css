@@ -199,9 +199,18 @@
 }
 .file-thumb-icon { width: 42px; height: 42px; border-radius: 8px; background: var(--surface-strong); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--cyan-soft); }
 .file-thumb-icon svg { width: 20px; height: 20px; }
-.file-meta { min-width: 0; flex: 1; }
-.file-name { font-size: var(--fs-sm); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.file-sub { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--text-tertiary); }
+.file-index {
+  width: 22px; height: 22px; border-radius: var(--radius-pill); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--gradient-brand); color: #0a0e1a; font-size: var(--fs-xs); font-weight: 700;
+  font-family: var(--font-mono);
+}
+.file-meta { min-width: 0; flex: 1; overflow: hidden; }
+.file-name {
+  font-size: var(--fs-sm); font-weight: 600; white-space: nowrap; overflow: hidden;
+  text-overflow: ellipsis; max-width: 100%;
+}
+.file-sub { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--text-tertiary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .file-actions { display: flex; align-items: center; gap: var(--sp-1); flex-shrink: 0; }
 .file-actions .icon-btn { width: 32px; height: 32px; }
 .file-actions .icon-btn svg { width: 15px; height: 15px; }
@@ -225,7 +234,8 @@
 .results-savings strong { color: var(--success); }
 .results-list { display: flex; flex-direction: column; gap: var(--sp-2); margin: var(--sp-4) 0; }
 .result-item { display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-3); background: var(--input-bg); border-radius: var(--radius-md); border: 1px solid var(--surface-border); }
-.result-size-compare { display: flex; align-items: center; gap: var(--sp-2); font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--text-tertiary); }
+.result-item .file-meta { min-width: 0; }
+.result-size-compare { display: flex; align-items: center; gap: var(--sp-2); font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--text-tertiary); flex-wrap: wrap; }
 .result-size-compare .before { text-decoration: line-through; }
 .result-size-compare .after { color: var(--success); font-weight: 700; }
 .results-actions { display: flex; gap: var(--sp-3); flex-wrap: wrap; }
@@ -233,8 +243,8 @@
 /* ---------------- History / Favorites list ---------------- */
 .history-list { display: flex; flex-direction: column; gap: var(--sp-2); }
 .history-item { display: flex; align-items: center; gap: var(--sp-4); padding: var(--sp-3) var(--sp-4); }
-.history-item .tool-icon { width: 34px; height: 34px; }
-.history-item .file-meta { flex: 1; }
+.history-item .tool-icon { width: 34px; height: 34px; flex-shrink: 0; }
+.history-item .file-meta { flex: 1; min-width: 0; }
 .history-item time { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--text-tertiary); flex-shrink: 0; }
 
 /* ---------------- Modals ---------------- */
