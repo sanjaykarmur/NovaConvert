@@ -97,7 +97,8 @@ export function initWorkspace() {
   });
 
   bus.on("queue:change", (queue) => {
-    renderFileList(el.fileList, queue, { onRemove: removeFromQueue, onInfo: showFileInfo });
+    const tool = getTool(state.currentToolId);
+    renderFileList(el.fileList, queue, { onRemove: removeFromQueue, onInfo: showFileInfo, numbered: !!tool?.orderMatters });
     updateConvertButton();
   });
 }

@@ -154,26 +154,28 @@ function iconForMime(mime = "") {
   return FILE_ICONS[kind] || "file-text";
 }
 
-export function renderFileList(container, queue, { onRemove, onInfo }) {
+export function renderFileList(container, queue, { onRemove, onInfo, numbered = false }) {
   if (!queue.length) {
     container.innerHTML = "";
     return;
   }
   container.innerHTML = queue
-    .map(
-      (item) => `
+    .map((item, i) => {
+      const safeName = format.escapeHtml(item.file.name);
+      return `
       <li class="file-item" data-id="${item.id}">
+        ${numbered ? `<span class="file-index">${i + 1}</span>` : ""}
         ${item.previewUrl ? `<img class="file-thumb" src="${item.previewUrl}" alt="">` : `<span class="file-thumb-icon">${icon(iconForMime(item.file.type))}</span>`}
         <div class="file-meta">
-          <div class="file-name">${format.truncate(item.file.name, 42)}</div>
+          <div class="file-name" title="${safeName}">${format.escapeHtml(format.truncate(item.file.name, 42))}</div>
           <div class="file-sub">${format.bytes(item.file.size)} · ${format.ext(item.file.name).toUpperCase() || "FILE"}</div>
         </div>
         <div class="file-actions">
           <button class="icon-btn" data-info="${item.id}" aria-label="File info">${icon("info")}</button>
           <button class="icon-btn" data-remove="${item.id}" aria-label="Remove file">${icon("trash")}</button>
         </div>
-      </li>`
-    )
+      </li>`;
+    })
     .join("");
 
   container.querySelectorAll("[data-remove]").forEach((btn) => btn.addEventListener("click", () => onRemove(btn.dataset.remove)));
@@ -197,37 +199,39 @@ export function renderResults(container, results, savingsEl) {
   }
 
   const okItems = ok
-    .map(
-      (r) => `
-      <li class="result-item" data-name="${r.name}">
+    .map((r) => {
+      const safeName = format.escapeHtml(r.name);
+      return `
+      <li class="result-item" data-name="${safeName}">
         <span class="file-thumb-icon">${icon("check-circle")}</span>
         <div class="file-meta">
-          <div class="file-name">${format.truncate(r.name, 42)}</div>
+          <div class="file-name" title="${safeName}">${format.escapeHtml(format.truncate(r.name, 42))}</div>
           <div class="result-size-compare">
             ${r.originalSize ? `<span class="before">${format.bytes(r.originalSize)}</span> →` : ""}
             <span class="after">${format.bytes(r.blob.size)}</span>
           </div>
         </div>
         <div class="file-actions">
-          <button class="icon-btn" data-share="${r.name}" aria-label="Share ${r.name}">${icon("share")}</button>
-          <button class="icon-btn" data-copy="${r.name}" aria-label="Copy link to ${r.name}">${icon("link")}</button>
-          <button class="icon-btn" data-download="${r.name}" aria-label="Download ${r.name}">${icon("download")}</button>
+          <button class="icon-btn" data-share="${safeName}" aria-label="Share ${safeName}">${icon("share")}</button>
+          <button class="icon-btn" data-copy="${safeName}" aria-label="Copy link to ${safeName}">${icon("link")}</button>
+          <button class="icon-btn" data-download="${safeName}" aria-label="Download ${safeName}">${icon("download")}</button>
         </div>
-      </li>`
-    )
+      </li>`;
+    })
     .join("");
 
   const failedItems = failed
-    .map(
-      (r) => `
-      <li class="result-item" data-name="${r.name}">
+    .map((r) => {
+      const safeName = format.escapeHtml(r.name);
+      return `
+      <li class="result-item" data-name="${safeName}">
         <span class="file-thumb-icon" style="color:var(--danger)">${icon("alert-triangle")}</span>
         <div class="file-meta">
-          <div class="file-name">${format.truncate(r.name, 42)}</div>
-          <div class="file-sub" style="color:var(--danger)">${r.error}</div>
+          <div class="file-name" title="${safeName}">${format.escapeHtml(format.truncate(r.name, 42))}</div>
+          <div class="file-sub" style="color:var(--danger)">${format.escapeHtml(r.error)}</div>
         </div>
-      </li>`
-    )
+      </li>`;
+    })
     .join("");
 
   container.innerHTML = okItems + failedItems;
@@ -242,11 +246,12 @@ export function renderHistory(container, history) {
   container.innerHTML = history
     .map((h) => {
       const tool = TOOLS.find((t) => t.id === h.toolId);
+      const safeName = format.escapeHtml(h.fileName);
       return `<li class="history-item glass">
         <div class="tool-icon">${icon(tool?.icon || "file-text")}</div>
         <div class="file-meta">
-          <div class="file-name">${format.truncate(h.fileName, 40)}</div>
-          <div class="file-sub">${h.toolName}</div>
+          <div class="file-name" title="${safeName}">${format.escapeHtml(format.truncate(h.fileName, 40))}</div>
+          <div class="file-sub">${format.escapeHtml(h.toolName)}</div>
         </div>
         <time>${format.date(h.ts)}</time>
       </li>`;
